@@ -1,0 +1,73 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.26124.0
+MinimumVisualStudioVersion = 15.0.26124.0
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "package", "package", "{A8AC8659-AEB3-483C-85B3-985D0998C0E2}"
+ProjectSection(SolutionItems) = preProject
+	package\NuGet.config = package\NuGet.config
+EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stackage.Http", "package\Stackage.Http\Stackage.Http.csproj", "{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stackage.Http.Tests", "package\Stackage.Http.Tests\Stackage.Http.Tests.csproj", "{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{881B1EA2-24D7-460D-9580-A447E11D8160}"
+ProjectSection(SolutionItems) = preProject
+	.editorconfig = .editorconfig
+	.gitignore = .gitignore
+	build.ps1 = build.ps1
+EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{69284414-35B4-44EF-9FFA-BE0F50000978}"
+ProjectSection(SolutionItems) = preProject
+	pipelines\azure-pipelines.ci.yaml = pipelines\azure-pipelines.ci.yaml
+	pipelines\azure-pipelines.pr.yaml = pipelines\azure-pipelines.pr.yaml
+	pipelines\azure-pipelines.release.yaml = pipelines\azure-pipelines.release.yaml
+	pipelines\azure-pipelines.steps.yaml = pipelines\azure-pipelines.steps.yaml
+EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Debug|x64.Build.0 = Debug|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Debug|x86.Build.0 = Debug|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Release|x64.ActiveCfg = Release|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Release|x64.Build.0 = Release|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Release|x86.ActiveCfg = Release|Any CPU
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}.Release|x86.Build.0 = Release|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Debug|x64.Build.0 = Debug|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Debug|x86.Build.0 = Debug|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Release|x64.ActiveCfg = Release|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Release|x64.Build.0 = Release|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Release|x86.ActiveCfg = Release|Any CPU
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E} = {A8AC8659-AEB3-483C-85B3-985D0998C0E2}
+		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6} = {A8AC8659-AEB3-483C-85B3-985D0998C0E2}
+		{69284414-35B4-44EF-9FFA-BE0F50000978} = {881B1EA2-24D7-460D-9580-A447E11D8160}
+	EndGlobalSection
+EndGlobal
