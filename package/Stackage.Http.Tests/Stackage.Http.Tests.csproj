@@ -6,7 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Stackage.Core" Version="1.0.0-preview005"/>
+    <PackageReference Include="Stackage.Core" Version="1.0.0-preview008"/>
   </ItemGroup>
 
   <ItemGroup>

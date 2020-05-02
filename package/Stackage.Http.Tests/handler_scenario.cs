@@ -1,6 +1,7 @@
 using System;
 using FakeItEasy;
 using Hornbill;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stackage.Core.Abstractions;
 using Stackage.Core.Abstractions.Metrics;
@@ -31,7 +32,7 @@ namespace Stackage.Http.Tests
 
          var services = new ServiceCollection();
 
-         services.AddDefaultServices();
+         services.AddDefaultServices(A.Fake<IConfiguration>());
 
          services.AddSingleton(GuidGenerator);
          services.AddSingleton<IMetricSink>(MetricSink);
