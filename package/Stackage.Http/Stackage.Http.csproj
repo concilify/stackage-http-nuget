@@ -18,7 +18,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Stackage.Core.Abstractions" Version="1.0.0-preview009"/>
+    <PackageReference Include="Stackage.Core.Abstractions" Version="1.0.0-preview010"/>
   </ItemGroup>
 
   <ItemGroup>

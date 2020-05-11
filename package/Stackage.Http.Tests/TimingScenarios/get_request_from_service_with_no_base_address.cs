@@ -21,19 +21,17 @@ namespace Stackage.Http.Tests.TimingScenarios
       [OneTimeSetUp]
       public async Task setup_scenario()
       {
-         setup_handler_scenario(stubHttpService =>
-         {
-            stubHttpService.AddResponse("/passthrough", Method.GET, Response.WithBody(200, "bar"));
-         },(stubBaseAddress, services) =>
-         {
-            var configuration = new ConfigurationBuilder()
-               .AddInMemoryCollection(new Dictionary<string, string>
-               {
-                  {"TESTHTTPSERVICE:TIMEOUTMS", "500"}
-               }).Build();
+         setup_handler_scenario(stubHttpService => { stubHttpService.AddResponse("/passthrough", Method.GET, Response.WithBody(200, "bar")); },
+            (stubBaseAddress, services) =>
+            {
+               var configuration = new ConfigurationBuilder()
+                  .AddInMemoryCollection(new Dictionary<string, string>
+                  {
+                     {"TESTHTTPSERVICE:TIMEOUTMS", "500"}
+                  }).Build();
 
-            services.AddHttpService<ITestHttpService, TestHttpService, TestHttpServiceConfiguration>(configuration);
-         });
+               services.AddHttpService<ITestHttpService, TestHttpService, TestHttpServiceConfiguration>(configuration);
+            });
 
          var api = ServiceProvider.GetRequiredService<ITestHttpService>();
 
@@ -87,6 +85,5 @@ namespace Stackage.Http.Tests.TimingScenarios
          Assert.That(metric.Dimensions["path"], Is.EqualTo("/passthrough"));
          Assert.That(metric.Dimensions["statusCode"], Is.EqualTo(200));
       }
-
    }
 }

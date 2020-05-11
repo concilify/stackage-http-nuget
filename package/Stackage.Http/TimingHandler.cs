@@ -29,7 +29,7 @@ namespace Stackage.Http
       {
          Task OnSuccessAsync(Context policyContext, HttpResponseMessage result)
          {
-            policyContext.Add("statusCode", (int)result.StatusCode);
+            policyContext.Add("statusCode", (int) result.StatusCode);
             return Task.CompletedTask;
          }
 
