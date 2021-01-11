@@ -21,7 +21,11 @@ namespace Stackage.Http.Tests.TimingScenarios
       [OneTimeSetUp]
       public async Task setup_scenario()
       {
-         setup_handler_scenario(stubHttpService => { stubHttpService.AddResponse("/passthrough", Method.GET, Response.WithBody(200, "bar")); },
+         setup_handler_scenario(
+            stubHttpService =>
+            {
+               stubHttpService.AddResponse("/passthrough", Method.GET, Response.WithBody(200, "bar"));
+            },
             (stubBaseAddress, services) =>
             {
                var configuration = new ConfigurationBuilder()

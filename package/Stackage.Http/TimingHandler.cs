@@ -33,6 +33,12 @@ namespace Stackage.Http
             return Task.CompletedTask;
          }
 
+         Task OnExceptionAsync(Context policyContext, Exception exception)
+         {
+            policyContext.Add("exception", exception.GetType().Name);
+            return Task.CompletedTask;
+         }
+
          var dimensions = new Dictionary<string, object>
          {
             {"name", _httpServiceName},
@@ -40,7 +46,12 @@ namespace Stackage.Http
             {"path", request.RequestUri.LocalPath}
          };
 
-         var timingPolicy = _policyFactory.CreateAsyncTimingPolicy<HttpResponseMessage>("http_client", _metricSink, dimensions, onSuccessAsync: OnSuccessAsync);
+         var timingPolicy = _policyFactory.CreateAsyncTimingPolicy<HttpResponseMessage>(
+            "http_client",
+            _metricSink,
+            dimensions,
+            onSuccessAsync: OnSuccessAsync,
+            onExceptionAsync: OnExceptionAsync);
 
          var response = await timingPolicy.ExecuteAsync(() => base.SendAsync(request, cancellationToken)).ConfigureAwait(false);
          return response;

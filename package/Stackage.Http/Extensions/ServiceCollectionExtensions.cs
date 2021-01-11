@@ -39,6 +39,7 @@ namespace Stackage.Http.Extensions
 
          services.AddHttpClient<TService, TImplementation>()
             .ConfigureHttpClient((_, httpClient) => ConfigureHttpClient(httpClient, httpServiceConfiguration))
+            .AddHttpMessageHandler(() => CreateExceptionHandler(httpServiceName))
             .AddHttpMessageHandler(sp => CreateTimingHandler(sp, httpServiceName));
 
          return services;
@@ -50,6 +51,11 @@ namespace Stackage.Http.Extensions
          {
             httpClient.BaseAddress = new Uri(httpServiceConfiguration.Url);
          }
+      }
+
+      private static ExceptionHandler CreateExceptionHandler(string httpServiceName)
+      {
+         return new ExceptionHandler(httpServiceName);
       }
 
       private static TimingHandler CreateTimingHandler(IServiceProvider sp, string httpServiceName)
