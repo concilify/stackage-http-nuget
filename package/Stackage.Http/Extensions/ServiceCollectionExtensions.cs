@@ -40,7 +40,7 @@ namespace Stackage.Http.Extensions
          services.AddHttpClient<TService, TImplementation>()
             .ConfigureHttpClient((_, httpClient) => ConfigureHttpClient(httpClient, httpServiceConfiguration))
             .AddHttpMessageHandler(() => CreateExceptionHandler(httpServiceName))
-            .AddHttpMessageHandler(sp => CreateTimingHandler(sp, httpServiceName));
+            .AddHttpMessageHandler(sp => CreateMetricsHandler(sp, httpServiceName));
 
          return services;
       }
@@ -58,12 +58,12 @@ namespace Stackage.Http.Extensions
          return new ExceptionHandler(httpServiceName);
       }
 
-      private static TimingHandler CreateTimingHandler(IServiceProvider sp, string httpServiceName)
+      private static MetricsHandler CreateMetricsHandler(IServiceProvider sp, string httpServiceName)
       {
          var policyFactory = sp.GetRequiredService<IPolicyFactory>();
          var metricSink = sp.GetRequiredService<IMetricSink>();
 
-         return new TimingHandler(policyFactory, metricSink, httpServiceName);
+         return new MetricsHandler(policyFactory, metricSink, httpServiceName);
       }
    }
 }

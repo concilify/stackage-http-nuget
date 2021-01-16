@@ -11,9 +11,9 @@ using Stackage.Core.Abstractions.Metrics;
 using Stackage.Http.Extensions;
 using Stackage.Http.Tests.Services;
 
-namespace Stackage.Http.Tests.TimingScenarios
+namespace Stackage.Http.Tests.MetricsScenarios
 {
-   public class get_request : handler_scenario
+   public class get_request_from_service_with_no_base_address : handler_scenario
    {
       private HttpStatusCode _statusCode;
       private string _content;
@@ -31,7 +31,6 @@ namespace Stackage.Http.Tests.TimingScenarios
                var configuration = new ConfigurationBuilder()
                   .AddInMemoryCollection(new Dictionary<string, string>
                   {
-                     {"TESTHTTPSERVICE:URL", stubBaseAddress},
                      {"TESTHTTPSERVICE:TIMEOUTMS", "500"}
                   }).Build();
 
@@ -40,7 +39,7 @@ namespace Stackage.Http.Tests.TimingScenarios
 
          var api = ServiceProvider.GetRequiredService<ITestHttpService>();
 
-         (_statusCode, _content) = await api.Passthrough();
+         (_statusCode, _content) = await api.Passthrough(StubBaseAddress);
       }
 
       [OneTimeTearDown]

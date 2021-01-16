@@ -1,8 +1,8 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
+using System.Net;
 using System.Threading.Tasks;
+using Hornbill;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -11,23 +11,27 @@ using Stackage.Core.Abstractions.Metrics;
 using Stackage.Http.Extensions;
 using Stackage.Http.Tests.Services;
 
-namespace Stackage.Http.Tests.TimingScenarios
+namespace Stackage.Http.Tests.MetricsScenarios
 {
-   public class get_request_to_invalid_address : handler_scenario
+   public class get_request : handler_scenario
    {
-      private Exception _thrownException;
+      private HttpStatusCode _statusCode;
+      private string _content;
 
       [OneTimeSetUp]
       public async Task setup_scenario()
       {
          setup_handler_scenario(
-            stubHttpService => { },
+            stubHttpService =>
+            {
+               stubHttpService.AddResponse("/passthrough", Method.GET, Response.WithBody(200, "bar"));
+            },
             (stubBaseAddress, services) =>
             {
                var configuration = new ConfigurationBuilder()
                   .AddInMemoryCollection(new Dictionary<string, string>
                   {
-                     {"TESTHTTPSERVICE:URL", "http://does-not-exist"},
+                     {"TESTHTTPSERVICE:URL", stubBaseAddress},
                      {"TESTHTTPSERVICE:TIMEOUTMS", "500"}
                   }).Build();
 
@@ -36,14 +40,7 @@ namespace Stackage.Http.Tests.TimingScenarios
 
          var api = ServiceProvider.GetRequiredService<ITestHttpService>();
 
-         try
-         {
-            await api.Passthrough();
-         }
-         catch (Exception e)
-         {
-            _thrownException = e;
-         }
+         (_statusCode, _content) = await api.Passthrough();
       }
 
       [OneTimeTearDown]
@@ -53,13 +50,15 @@ namespace Stackage.Http.Tests.TimingScenarios
       }
 
       [Test]
-      public void exception_is_bubbled_up_through_service()
+      public void should_return_status_code_200()
       {
-         var httpServiceException = _thrownException.ShouldBeOfType<HttpServiceException>();
+         _statusCode.ShouldBe(HttpStatusCode.OK);
+      }
 
-         httpServiceException.ServiceName.ShouldBe("TestHttpService");
-         httpServiceException.Url.ShouldBe("http://does-not-exist/passthrough");
-         httpServiceException.InnerException.ShouldBeOfType<HttpRequestException>();
+      [Test]
+      public void should_return_content()
+      {
+         _content.ShouldBe("bar");
       }
 
       [Test]
@@ -89,7 +88,7 @@ namespace Stackage.Http.Tests.TimingScenarios
          Assert.That(metric.Dimensions["name"], Is.EqualTo("TestHttpService"));
          Assert.That(metric.Dimensions["method"], Is.EqualTo("GET"));
          Assert.That(metric.Dimensions["path"], Is.EqualTo("/passthrough"));
-         Assert.That(metric.Dimensions["exception"], Is.EqualTo("HttpRequestException"));
+         Assert.That(metric.Dimensions["statusCode"], Is.EqualTo(200));
       }
    }
 }

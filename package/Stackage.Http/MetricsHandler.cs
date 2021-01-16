@@ -9,13 +9,13 @@ using Stackage.Core.Abstractions.Polly;
 
 namespace Stackage.Http
 {
-   public class TimingHandler : DelegatingHandler
+   public class MetricsHandler : DelegatingHandler
    {
       private readonly IPolicyFactory _policyFactory;
       private readonly IMetricSink _metricSink;
       private readonly string _httpServiceName;
 
-      public TimingHandler(
+      public MetricsHandler(
          IPolicyFactory policyFactory,
          IMetricSink metricSink,
          string httpServiceName)
@@ -39,6 +39,12 @@ namespace Stackage.Http
             return Task.CompletedTask;
          }
 
+         var metricsPolicy = _policyFactory.CreateAsyncMetricsPolicy<HttpResponseMessage>(
+            "http_client",
+            _metricSink,
+            onSuccessAsync: OnSuccessAsync,
+            onExceptionAsync: OnExceptionAsync);
+
          var dimensions = new Dictionary<string, object>
          {
             {"name", _httpServiceName},
@@ -46,14 +52,9 @@ namespace Stackage.Http
             {"path", request.RequestUri.LocalPath}
          };
 
-         var timingPolicy = _policyFactory.CreateAsyncTimingPolicy<HttpResponseMessage>(
-            "http_client",
-            _metricSink,
-            dimensions,
-            onSuccessAsync: OnSuccessAsync,
-            onExceptionAsync: OnExceptionAsync);
-
-         var response = await timingPolicy.ExecuteAsync(() => base.SendAsync(request, cancellationToken)).ConfigureAwait(false);
+         var response = await metricsPolicy
+            .ExecuteAsync(_ => base.SendAsync(request, cancellationToken), dimensions)
+            .ConfigureAwait(false);
          return response;
       }
    }
