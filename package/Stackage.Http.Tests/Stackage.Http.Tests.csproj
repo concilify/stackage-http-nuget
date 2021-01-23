@@ -7,13 +7,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Stackage.Core" Version="1.0.0-preview015" />
+    <PackageReference Include="Stackage.Core" Version="1.0.0-preview017" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FakeItEasy" Version="6.2.1" />
     <PackageReference Include="Hornbill" Version="2.6.2" />
-    <!-- <PackageReference Include="Microsoft.AspNetCore.Server.Kestrel" Version="2.2.0" /> -->
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="5.0.1" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.8.3" />
     <PackageReference Include="NUnit" Version="3.13.0" />
