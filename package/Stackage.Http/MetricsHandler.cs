@@ -49,7 +49,7 @@ namespace Stackage.Http
          {
             {"name", _httpServiceName},
             {"method", request.Method.Method},
-            {"path", request.RequestUri.LocalPath}
+            {"path", request.RequestUri!.LocalPath}
          };
 
          var response = await metricsPolicy

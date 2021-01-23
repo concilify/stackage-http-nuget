@@ -23,7 +23,7 @@ namespace Stackage.Http
          }
          catch (Exception e)
          {
-            throw new HttpServiceException(e, _httpServiceName, request.RequestUri.ToString());
+            throw new HttpServiceException(e, _httpServiceName, request.RequestUri!.ToString());
          }
       }
    }

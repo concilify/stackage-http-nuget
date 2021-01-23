@@ -4,9 +4,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "package", "package", "{A8AC8659-AEB3-483C-85B3-985D0998C0E2}"
-ProjectSection(SolutionItems) = preProject
-	package\NuGet.config = package\NuGet.config
-EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Stackage.Http", "package\Stackage.Http\Stackage.Http.csproj", "{71687A62-81FD-4B36-B5CF-F649E9DC6F5E}"
 EndProject
@@ -17,14 +14,7 @@ ProjectSection(SolutionItems) = preProject
 	.editorconfig = .editorconfig
 	.gitignore = .gitignore
 	build.ps1 = build.ps1
-EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "pipelines", "pipelines", "{69284414-35B4-44EF-9FFA-BE0F50000978}"
-ProjectSection(SolutionItems) = preProject
-	pipelines\azure-pipelines.ci.yaml = pipelines\azure-pipelines.ci.yaml
-	pipelines\azure-pipelines.pr.yaml = pipelines\azure-pipelines.pr.yaml
-	pipelines\azure-pipelines.release.yaml = pipelines\azure-pipelines.release.yaml
-	pipelines\azure-pipelines.steps.yaml = pipelines\azure-pipelines.steps.yaml
+	README.md = README.md
 EndProjectSection
 EndProject
 Global
@@ -68,6 +58,5 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{71687A62-81FD-4B36-B5CF-F649E9DC6F5E} = {A8AC8659-AEB3-483C-85B3-985D0998C0E2}
 		{6BACE9C5-F90D-46DD-AF70-E9BF8C46FBD6} = {A8AC8659-AEB3-483C-85B3-985D0998C0E2}
-		{69284414-35B4-44EF-9FFA-BE0F50000978} = {881B1EA2-24D7-460D-9580-A447E11D8160}
 	EndGlobalSection
 EndGlobal
