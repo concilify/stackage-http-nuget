@@ -4,7 +4,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Http;
-using Stackage.Core.Abstractions.Metrics;
 using Stackage.Core.Abstractions.Polly;
 
 namespace Stackage.Http.Extensions
@@ -61,9 +60,8 @@ namespace Stackage.Http.Extensions
       private static MetricsHandler CreateMetricsHandler(IServiceProvider sp, string httpServiceName)
       {
          var policyFactory = sp.GetRequiredService<IPolicyFactory>();
-         var metricSink = sp.GetRequiredService<IMetricSink>();
 
-         return new MetricsHandler(policyFactory, metricSink, httpServiceName);
+         return new MetricsHandler(policyFactory, httpServiceName);
       }
    }
 }

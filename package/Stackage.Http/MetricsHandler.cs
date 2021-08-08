@@ -4,7 +4,6 @@ using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using Polly;
-using Stackage.Core.Abstractions.Metrics;
 using Stackage.Core.Abstractions.Polly;
 
 namespace Stackage.Http
@@ -12,16 +11,13 @@ namespace Stackage.Http
    public class MetricsHandler : DelegatingHandler
    {
       private readonly IPolicyFactory _policyFactory;
-      private readonly IMetricSink _metricSink;
       private readonly string _httpServiceName;
 
       public MetricsHandler(
          IPolicyFactory policyFactory,
-         IMetricSink metricSink,
          string httpServiceName)
       {
          _policyFactory = policyFactory ?? throw new ArgumentNullException(nameof(policyFactory));
-         _metricSink = metricSink ?? throw new ArgumentNullException(nameof(metricSink));
          _httpServiceName = httpServiceName ?? throw new ArgumentNullException(nameof(httpServiceName));
       }
 
@@ -41,7 +37,6 @@ namespace Stackage.Http
 
          var metricsPolicy = _policyFactory.CreateAsyncMetricsPolicy<HttpResponseMessage>(
             "http_client",
-            _metricSink,
             onSuccessAsync: OnSuccessAsync,
             onExceptionAsync: OnExceptionAsync);
 

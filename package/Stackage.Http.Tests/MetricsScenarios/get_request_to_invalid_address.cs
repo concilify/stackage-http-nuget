@@ -85,7 +85,6 @@ namespace Stackage.Http.Tests.MetricsScenarios
          var metric = (Gauge) MetricSink.Metrics.Last();
 
          Assert.That(metric.Name, Is.EqualTo("http_client_end"));
-         Assert.That(metric.Value, Is.GreaterThanOrEqualTo(0));
          Assert.That(metric.Dimensions["name"], Is.EqualTo("TestHttpService"));
          Assert.That(metric.Dimensions["method"], Is.EqualTo("GET"));
          Assert.That(metric.Dimensions["path"], Is.EqualTo("/passthrough"));
