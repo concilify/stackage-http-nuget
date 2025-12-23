@@ -18,11 +18,11 @@ namespace Stackage.Http.Tests.MetricsScenarios
       private Exception _thrownException;
 
       [OneTimeSetUp]
-      public async Task setup_scenario()
+      public async Task setup_scenario_async()
       {
-         setup_handler_scenario(
-            stubHttpService => { },
-            (stubBaseAddress, services) =>
+         await setup_handler_scenario_async(
+            _ => { },
+            (_, services) =>
             {
                var configuration = new ConfigurationBuilder()
                   .AddInMemoryCollection(new Dictionary<string, string>
@@ -47,9 +47,9 @@ namespace Stackage.Http.Tests.MetricsScenarios
       }
 
       [OneTimeTearDown]
-      public void teardown_scenario()
+      public async Task teardown_scenario_async()
       {
-         teardown_handler_scenario();
+         await teardown_handler_scenario_async();
       }
 
       [Test]

@@ -1,6 +1,6 @@
 using System;
+using System.Threading.Tasks;
 using FakeItEasy;
-using Hornbill;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Stackage.Core.Abstractions;
@@ -21,7 +21,7 @@ namespace Stackage.Http.Tests
 
       private FakeService _stubHttpService;
 
-      protected void setup_handler_scenario(Action<FakeService> configureStubHttpService = null, Action<string, ServiceCollection> configureServices = null)
+      protected async Task setup_handler_scenario_async(Action<FakeService> configureStubHttpService = null, Action<string, ServiceCollection> configureServices = null)
       {
          _stubHttpService = new FakeService();
 
@@ -37,17 +37,17 @@ namespace Stackage.Http.Tests
          services.AddSingleton(GuidGenerator);
          services.AddSingleton<IMetricSink>(MetricSink);
 
-         StubBaseAddress = _stubHttpService.Start();
+         StubBaseAddress = await _stubHttpService.StartAsync();
 
          configureServices?.Invoke(StubBaseAddress, services);
 
          ServiceProvider = services.BuildServiceProvider();
       }
 
-      protected void teardown_handler_scenario()
+      protected async Task teardown_handler_scenario_async()
       {
-         _stubHttpService.Dispose();
-         ServiceProvider.Dispose();
+         await _stubHttpService.DisposeAsync();
+         await ServiceProvider.DisposeAsync();
       }
    }
 }

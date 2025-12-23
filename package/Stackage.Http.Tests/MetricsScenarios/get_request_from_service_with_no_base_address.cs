@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Hornbill;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using NUnit.Framework;
@@ -19,14 +18,14 @@ namespace Stackage.Http.Tests.MetricsScenarios
       private string _content;
 
       [OneTimeSetUp]
-      public async Task setup_scenario()
+      public async Task setup_scenario_async()
       {
-         setup_handler_scenario(
+         await setup_handler_scenario_async(
             stubHttpService =>
             {
-               stubHttpService.AddResponse("/passthrough", Method.GET, Response.WithBody(200, "bar"));
+               stubHttpService.Get("/passthrough", 200, "bar");
             },
-            (stubBaseAddress, services) =>
+            (_, services) =>
             {
                var configuration = new ConfigurationBuilder()
                   .AddInMemoryCollection(new Dictionary<string, string>
@@ -43,9 +42,9 @@ namespace Stackage.Http.Tests.MetricsScenarios
       }
 
       [OneTimeTearDown]
-      public void teardown_scenario()
+      public async Task teardown_scenario_async()
       {
-         teardown_handler_scenario();
+         await teardown_handler_scenario_async();
       }
 
       [Test]
