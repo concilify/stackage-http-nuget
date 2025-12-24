@@ -28,7 +28,7 @@ jobs:
       run: dotnet pack --configuration Release -p:Version=${VERSION} --output . package/Stackage.Http/Stackage.Http.csproj
 
     - name: Test
-      run: dotnet test --configuration Release -p:Version=${VERSION} package/Stackage.Http.Tests/Stackage.Http.Tests.csproj
+      run: dotnet test --configuration Release -p:Version=${VERSION} -p:TestTfmsInParallel=false package/Stackage.Http.Tests/Stackage.Http.Tests.csproj
 
     - name: Push
       run: dotnet nuget push Stackage.Http.${VERSION}.nupkg --source https://api.nuget.org/v3/index.json --api-key ${NUGET_PUSH_TOKEN}
